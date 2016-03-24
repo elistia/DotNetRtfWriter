@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtfWriter", "RtfWriter\RtfWriter.csproj", "{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugging", "Debugging\Debugging.csproj", "{B4B65481-AEB3-454A-9FCD-036C435D4DBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
