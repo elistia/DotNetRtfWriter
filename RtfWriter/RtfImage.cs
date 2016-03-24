@@ -14,6 +14,7 @@ namespace DW.RtfWriter
 	{
 		private string _imgFname;
 		private ImageFileType _imgType;
+        private Byte[] _imgByte;
 		private Align _alignment;
 		private Margins _margins;
 		private float _width;
@@ -22,6 +23,7 @@ namespace DW.RtfWriter
 		private string _blockHead;
 		private string _blockTail;
 		private bool _startNewPage;
+        private bool _startNewPara;
 
 		internal RtfImage(string fileName, ImageFileType type)
 		{
@@ -31,15 +33,46 @@ namespace DW.RtfWriter
 			_margins = new Margins();
 			_keepAspectRatio = true;
 			_blockHead = @"{\pard";
-			_blockTail = @"\par}";
+			_blockTail = @"}";
 			_startNewPage = false;
+            _startNewPara = false;
 			
-			Image image = Image.FromFile(fileName);
+            Image image = Image.FromFile(fileName);
 			_width = (image.Width / image.HorizontalResolution) * 72;
 			_height = (image.Height / image.VerticalResolution) * 72;
-		}
 
-		public override Align Alignment
+            using (MemoryStream mStream = new MemoryStream())
+            {
+                image.Save(mStream, image.RawFormat);
+                _imgByte = mStream.ToArray();
+            }
+        }
+
+
+        internal RtfImage(System.IO.MemoryStream imageStream)
+        {
+            _alignment = Align.Left;
+            _margins = new Margins();
+            _keepAspectRatio = true;
+            _blockHead = @"{\pard";
+            _blockTail = @"}";
+            _startNewPage = false;
+            _startNewPara = false;
+
+            _imgByte = imageStream.ToArray();
+
+            Image image = Image.FromStream(imageStream);
+            _width = (image.Width / image.HorizontalResolution) * 72;
+            _height = (image.Height / image.VerticalResolution) * 72;
+
+            if(image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png)) _imgType = ImageFileType.Png;
+            else if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg)) _imgType = ImageFileType.Jpg;
+            else if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Gif)) _imgType = ImageFileType.Gif;
+            else throw new Exception("Image format is not supported: " + image.RawFormat.ToString());
+        }
+
+
+        public override Align Alignment
 		{
 			get
 			{
@@ -71,7 +104,19 @@ namespace DW.RtfWriter
 			}
 		}
 
-		public float Width
+        public bool StartNewPara
+        {
+            get
+            {
+                return _startNewPara;
+            }
+            set
+            {
+                _startNewPara = value;
+            }
+        }
+
+        public float Width
 		{
 			get
 			{
@@ -126,15 +171,17 @@ namespace DW.RtfWriter
 
 		private string extractImage()
 		{
-			Byte[] bin = File.ReadAllBytes(_imgFname);
-			StringBuilder result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
-			for (int i = 0; i < bin.Length; i++) {
-				if (i != 0 && i % 60 == 0) {
-					result.AppendLine();
-				}
-				result.AppendFormat("{0:x2}", bin[i]);
-			}
+            for (int i = 0; i < _imgByte.Length; i++)
+            {
+                if (i != 0 && i % 60 == 0)
+                {
+                    result.AppendLine();
+                }
+                result.AppendFormat("{0:x2}", _imgByte[i]);
+            }
+            
 			return result.ToString();
 		}
 
@@ -205,6 +252,7 @@ namespace DW.RtfWriter
 			
 			result.AppendLine(extractImage());
 			result.AppendLine("}}");
+            if (_startNewPara) result.Append(@"\par");
 			result.AppendLine(_blockTail);
 			return result.ToString();
 		}

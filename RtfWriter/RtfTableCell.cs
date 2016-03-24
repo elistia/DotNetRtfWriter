@@ -165,15 +165,9 @@ namespace DW.RtfWriter
 				break;
 			}
 			
-			//result.Append(@"{\intbl");
-			//result.AppendLine();
-			
+
 			if (base._blocks.Count <= 0) {
 				result.AppendLine(@"\pard\intbl");
-				if( BackgroundColour != null )
-				{
-					result.Append( string.Format( @"\cbpat{0}", BackgroundColour.Value ) );
-				}
 			} else {
 				for (int i = 0; i < base._blocks.Count; i++) {
 					RtfBlock block = (RtfBlock) base._blocks[i];
@@ -193,8 +187,7 @@ namespace DW.RtfWriter
 						block.Margins[Direction.Left] = 0;
 					}
 					if (i == 0) {
-						block.BlockHead = @"\pard\intbl" + align +
-							( ( BackgroundColour != null ) ? string.Format( @"\cbpat{0}", BackgroundColour.Value ) : string.Empty );
+                        block.BlockHead = @"\pard\intbl" + align; 
 					} else {
 						block.BlockHead = @"\par" + align;
 					}

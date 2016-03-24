@@ -697,7 +697,7 @@ namespace DW.RtfWriter
 	{
 		public static int FontSize = 12;
 		public static string Font = "Times New Roman";
-		public static float MarginLarge = 90;
-		public static float MarginSmall = 72;
+		public static float MarginLarge = 50; // used for long edges of A4 (was 90)
+		public static float MarginSmall = 50; // used for short edges of A4 (was 72)
 	}
 }

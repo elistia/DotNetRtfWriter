@@ -41,7 +41,11 @@ namespace DW.RtfWriter
 			if (_rowCount < 1 || _colCount < 1) {
 				throw new Exception("The number of rows or columns is less than 1.");
 			}
-			
+
+            HeaderBackgroundColour = null;
+            RowBackgroundColour = null;
+            RowAltBackgroundColour = null;
+
 			// Set cell default width according to paper width
 			_defaultCellWidth = horizontalWidth / (float)colCount;
 			_cells = new RtfTableCell[_rowCount][];
@@ -58,7 +62,11 @@ namespace DW.RtfWriter
 			}
 		}
 
-		public override Align Alignment
+        public ColorDescriptor HeaderBackgroundColour { get; set; }
+        public ColorDescriptor RowBackgroundColour { get; set; }
+        public ColorDescriptor RowAltBackgroundColour { get; set; }
+
+        public override Align Alignment
 		{
 			get
 			{
@@ -517,7 +525,12 @@ namespace DW.RtfWriter
 								throw new Exception("Unkown border style");
 							}
 							result.Append(@"\brdrcf" + bdr.Color.Value);
-						}
+
+                            if (cell(i, j).BackgroundColour != null) result.Append(string.Format(@"\clcbpat{0}", cell(i, j).BackgroundColour.Value)); // cell.BackGroundColor overrides others
+                            else if (i == 0 && HeaderBackgroundColour != null) result.Append(string.Format(@"\clcbpat{0}", HeaderBackgroundColour.Value)); // header
+                            else if (RowBackgroundColour != null && (RowAltBackgroundColour == null || i % 2 == 0)) result.Append(string.Format(@"\clcbpat{0}", RowBackgroundColour.Value)); // row colour
+                            else if (RowBackgroundColour != null && RowAltBackgroundColour != null && i % 2 != 0) result.Append(string.Format(@"\clcbpat{0}", RowAltBackgroundColour.Value)); // alt row colour
+                        }
 					}
 					if (_cells[i][j].IsMerged && _cells[i][j].MergeInfo.RowSpan > 1) {
 						if (_cells[i][j].IsBeginOfRowSpan) {

@@ -54,7 +54,7 @@ namespace DW.RtfWriter
 			_text = new StringBuilder();
 			_linespacing = -1;
 			_margins = new Margins();
-			_align = Align.None;
+			_align = Align.Left; //Changed default to .Left as .None was spreading text accross page.
 			_charFormats = new List<RtfCharFormat>();
 			_allowFootnote = allowFootnote;
 			_allowControlWord = allowControlWord;

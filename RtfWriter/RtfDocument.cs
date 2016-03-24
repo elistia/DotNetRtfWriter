@@ -51,6 +51,10 @@ namespace DW.RtfWriter
 			{
 				return _margins;
 			}
+            set
+            {
+                _margins = value;
+            }
 		}
 
 		public RtfHeaderFooter Header
