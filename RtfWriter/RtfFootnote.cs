@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	/// <summary>
 	/// Summary description for RtfFootnote

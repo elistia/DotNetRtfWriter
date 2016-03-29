@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	public class RtfFieldControlWord : RtfRenderable
 	{

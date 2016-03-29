@@ -1,7 +1,7 @@
 using System;
 using System.Configuration;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	/// <summary>
 	/// Horizontal alignment.
@@ -263,7 +263,7 @@ namespace DW.RtfWriter
 	public class ColorDescriptor
 	{
 		private int _descr;
-
+        
 		/// <summary>
 		/// Internal use only.
 		/// Constructor.
@@ -488,14 +488,14 @@ namespace DW.RtfWriter
 	/// cannot be assigned to document directly. Instead, they work through
 	/// ColorDescriptor objects.
 	/// </summary>
-	public class Color
+	public class RtfColor
 	{
 		private int _color;
 		
 		/// <summary>
 		/// Default constructor that initialized as black color.
 		/// </summary>
-		public Color()
+		public RtfColor()
 		{
 			_color = 0;
 		}
@@ -506,7 +506,7 @@ namespace DW.RtfWriter
 		/// <param name="red">Red component of the color.</param>
 		/// <param name="green">Green component of the color.</param>
 		/// <param name="blue">Blue component of the color.</param>
-		public Color(byte red, byte green, byte blue)
+		public RtfColor(byte red, byte green, byte blue)
 		{
 			_color = (red << 16) + (green << 8) + blue;
 		}
@@ -517,7 +517,7 @@ namespace DW.RtfWriter
 		/// </summary>
 		/// <param name="hex">String representation of a hexadecimal value, such
 		/// as "FF0000" or "00AB12".</param>
-		public Color(string hex)
+		public RtfColor(string hex)
 		{
 			if (hex == null || hex.Length != 6) {
 				throw new Exception("String parameter hex should be of length 6.");
@@ -538,7 +538,7 @@ namespace DW.RtfWriter
 		/// Constructor that initializes using System Drawing colour
 		/// </summary>
 		/// <param name="color">System Drawing Colour</param>
-		public Color(System.Drawing.Color color)
+		public RtfColor(System.Drawing.Color color)
 		{
 			_color = ( color.R << 16 ) + ( color.G << 8 ) + color.B;
 		}
@@ -551,7 +551,7 @@ namespace DW.RtfWriter
 		/// <returns>True if two colors are identical; false otherwise.</returns>
 		public override bool Equals(object obj)
 		{
- 			Color b = (Color) obj;
+ 			RtfColor b = (RtfColor) obj;
  			return (b._color == this._color);
 		}
 

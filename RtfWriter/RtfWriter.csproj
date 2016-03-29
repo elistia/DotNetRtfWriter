@@ -8,8 +8,8 @@
     <ProjectGuid>{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DW.RtfWriter</RootNamespace>
-    <AssemblyName>RtfWriter</AssemblyName>
+    <RootNamespace>Elistia.DotNetRtfWriter</RootNamespace>
+    <AssemblyName>DotNetRtfWriter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

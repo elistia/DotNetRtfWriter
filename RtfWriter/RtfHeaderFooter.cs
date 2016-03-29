@@ -4,7 +4,7 @@ using System.Collections;
 using System.Text;
 using System.Collections.Generic;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	/// <summary>
 	/// Summary description for RtfHeaderFooter

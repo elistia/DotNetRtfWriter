@@ -2,7 +2,7 @@ using System;
 using System.Configuration;
 using System.Text;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	/// <summary>
 	/// Summary description for RtfTableCell

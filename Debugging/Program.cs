@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using DW.RtfWriter;
+using Elistia.DotNetRtfWriter;
 
 namespace Debugging
 {
@@ -10,20 +10,24 @@ namespace Debugging
 	{
 		private static void Main(string[] args)
 		{
-			// Create document by specifying paper size and orientation, 
-			// and default language.
-			var doc = new RtfDocument(PaperSize.A4, PaperOrientation.Portrait, 
-				Lcid.TraditionalChinese);
-			// Create fonts and colors for later use
-			var times = doc.createFont("Times New Roman");
-			var courier = doc.createFont("Courier New");
-			var red = doc.createColor(new Color("ff0000"));
-			var blue = doc.createColor(new Color(0, 0, 255));
+            // Create document by specifying paper size and orientation, 
+            // and default language.
+            var doc = new RtfDocument(PaperSize.A4, PaperOrientation.Landscape, Lcid.English);
 
-			// Don't instantiate RtfTable, RtfParagraph, and RtfImage objects by using
-			// ``new'' keyword. Instead, use add* method in objects derived from 
-			// RtfBlockList class. (See Demos.)
-			RtfTable table;
+            // Create fonts and colors for later use
+            var times = doc.createFont("Times New Roman");
+			var courier = doc.createFont("Courier New");
+			var red = doc.createColor(new RtfColor("ff0000"));
+			var blue = doc.createColor(new RtfColor(0, 0, 255));
+            var white = doc.createColor(new RtfColor(255, 255, 255));
+            var colourTableHeader = doc.createColor(new RtfColor("76923C"));
+            var colourTableRow = doc.createColor(new RtfColor("D6E3BC"));
+            var colourTableRowAlt = doc.createColor(new RtfColor("FFFFFF"));
+
+            // Don't instantiate RtfTable, RtfParagraph, and RtfImage objects by using
+            // ``new'' keyword. Instead, use add* method in objects derived from 
+            // RtfBlockList class. (See Demos.)
+            RtfTable table;
 			RtfParagraph par;
 			RtfImage img;
 			// Don't instantiate RtfCharFormat by using ``new'' keyword, either. 
@@ -31,25 +35,25 @@ namespace Debugging
 			RtfCharFormat fmt;
 
 
-			// ==========================================================================
-			// Demo 1: Font Setting
-			// ==========================================================================
-			// If you want to use Latin characters only, it is as simple as assigning
-			// ``Font'' property of RtfCharFormat objects. If you want to render Far East 
-			// characters with some font, and Latin characters with another, you may 
-			// assign the Far East font to ``Font'' property and the Latin font to 
-			// ``AnsiFont'' property. This Demo contains Traditional Chinese characters.
-			// (Note: non-Latin characters are unicoded so you don't have to be worried.)
-			par = doc.addParagraph();
-			par.DefaultCharFormat.Font = doc.createFont("標楷體");
-			par.DefaultCharFormat.AnsiFont = courier;
-			par.setText("Demo1: 分別設定中英文字型");
+            // ==========================================================================
+            // Demo 1: Font Setting
+            // ==========================================================================
+            // If you want to use Latin characters only, it is as simple as assigning
+            // ``Font'' property of RtfCharFormat objects. If you want to render Far East 
+            // characters with some font, and Latin characters with another, you may 
+            // assign the Far East font to ``Font'' property and the Latin font to 
+            // ``AnsiFont'' property. 
+            par = doc.addParagraph();
+            par.Alignment = Align.Left;
+            par.DefaultCharFormat.Font = times;
+            par.DefaultCharFormat.AnsiFont = courier;
+            par.setText("Testing\n");
 
 
-			// ==========================================================================
-			// Demo 2: Character Formatting
-			// ==========================================================================
-			par = doc.addParagraph();
+            // ==========================================================================
+            // Demo 2: Character Formatting
+            // ==========================================================================
+            par = doc.addParagraph();
 			par.DefaultCharFormat.Font = times;
 			par.setText("Demo2: Character Formatting");
 			// Besides setting default character formats of a paragraph, you can specify
@@ -110,7 +114,8 @@ namespace Debugging
 			img.Width = 130;
 			// Place the image on a new page. The ``StartNewPage'' property is also supported
 			// by paragraphs and tables.
-			img.StartNewPage = true;
+			//img.StartNewPage = true;
+            img.StartNewPara = true;
 
 
 			// ==========================================================================
@@ -123,25 +128,31 @@ namespace Debugging
 			// Step 1. Plan and draw the table you want on a scratch paper.
 			// Step 2. Start with a MxN regular table.
 			table = doc.addTable(5, 4, 415.2f, 12);
-			table.Margins[Direction.Bottom] = 20;
-			// Step 3. (Optional) Set text alignment for each cell, row height, column width,
-			//			border style, etc.
-			for(var i = 0; i < table.RowCount; i++) {
+            table.Margins[Direction.Bottom] = 20;
+            table.setInnerBorder(BorderStyle.Dotted, 1f);
+            table.setOuterBorder(BorderStyle.Single, 2f);
+
+            table.HeaderBackgroundColour = colourTableHeader;
+            table.RowBackgroundColour = colourTableRow;
+            table.RowAltBackgroundColour = colourTableRowAlt;
+
+
+            // Step 3. (Optional) Set text alignment for each cell, row height, column width,
+            //			border style, etc.
+            for (var i = 0; i < table.RowCount; i++) {
 				for(var j = 0; j < table.ColCount; j++) {
-					table.cell(i, j).Alignment = Align.Right;
-					table.cell(i, j).AlignmentVertical = AlignVertical.Middle;
 					table.cell(i, j).addParagraph().setText("CELL " + i.ToString() + "," + j.ToString());
 				}
 			}
-			table.setInnerBorder(BorderStyle.Dotted, 1.5f);
-			table.setOuterBorder(BorderStyle.Double, 3f);
+
 			// Step 4. Merge cells so that the resulting table would look like the one you drew
 			//			on paper. One cell cannot be merged twice. In this way, we can construct
 			//			almost all kinds of tables we need.
-			table.merge(1, 0, 4, 1);
-			// Step 5. You may start inserting content for each cell. Actually, it is adviced
-			//			that the only thing you do after merging cell is inserting content.
-			table.cell(1, 0).addParagraph().setText("Demo6: Table");
+			table.merge(1, 0, 3, 1);
+            // Step 5. You may start inserting content for each cell. Actually, it is adviced
+            //			that the only thing you do after merging cell is inserting content.
+            table.cell(4, 3).BackgroundColour = red;
+            table.cell(4, 3).addParagraph().setText("Demo6: Table");
 
 
 			// ==========================================================================

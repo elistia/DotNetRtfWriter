@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	public class RtfSectionFooter : RtfBlockList
 	{

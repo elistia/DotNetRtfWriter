@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	/// <summary>
 	/// A container for an array of content blocks. For example, a footnote

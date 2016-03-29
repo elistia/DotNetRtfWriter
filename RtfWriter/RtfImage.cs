@@ -5,7 +5,7 @@ using System.Drawing;
 using System.IO;
 using Image = System.Drawing.Image;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	/// <summary>
 	/// Summary description for RtfImage

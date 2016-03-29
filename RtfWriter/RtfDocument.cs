@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace DW.RtfWriter
+namespace Elistia.DotNetRtfWriter
 {
 	/// <summary>
 	/// Summary description for RtfDocument
@@ -16,7 +16,7 @@ namespace DW.RtfWriter
 		private Margins _margins;
 		private Lcid _lcid;
 		private List<string> _fontTable;
-		private List<Color> _colorTable;
+		private List<RtfColor> _colorTable;
 		private RtfHeaderFooter _header;
 		private RtfHeaderFooter _footer;
 		
@@ -39,8 +39,8 @@ namespace DW.RtfWriter
 			_lcid = lcid;
 			_fontTable = new List<string>();
 			_fontTable.Add(DefaultValue.Font);		// default font
-			_colorTable = new List<Color>();
-			_colorTable.Add(new Color());			// default color
+			_colorTable = new List<RtfColor>();
+			_colorTable.Add(new RtfColor());			// default color
 			_header = null;
 			_footer = null;
 		}
@@ -104,7 +104,7 @@ namespace DW.RtfWriter
 			return new FontDescriptor(_fontTable.IndexOf(fontName));
 		}
 		
-		public ColorDescriptor createColor(Color color)
+		public ColorDescriptor createColor(RtfColor color)
 		{
 			if (_colorTable.Contains(color)) {
 				return new ColorDescriptor(_colorTable.IndexOf(color));
@@ -115,7 +115,7 @@ namespace DW.RtfWriter
 
 		public ColorDescriptor createColor(System.Drawing.Color color)
 		{
-			var rtfColor = new Color(color.R, color.G, color.B);
+			var rtfColor = new RtfColor(color.R, color.G, color.B);
 			return createColor(rtfColor);
 		}
 		
@@ -159,7 +159,7 @@ namespace DW.RtfWriter
 			rtf.AppendLine(@"{\colortbl");
 			rtf.AppendLine(";");
 			for (int i = 1; i < _colorTable.Count; i++) {
-				Color c = _colorTable[i];
+				RtfColor c = _colorTable[i];
 				rtf.AppendLine(@"\red" + c.Red + @"\green" + c.Green + @"\blue" + c.Blue + ";");
 			}
 			rtf.AppendLine("}");
