@@ -7,3 +7,4 @@
 #### Forked by Tom Dowden (24/03/2016)
 Attempted to contact original author via Sourceforge. Have forked here to allow contribution of ammendments made.  If you are the original author and wish to take control of the project back then just let me know :smiley:
 
+#### Version 2.0 released (29/3/2016)
