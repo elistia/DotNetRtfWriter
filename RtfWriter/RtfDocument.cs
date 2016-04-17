@@ -93,9 +93,14 @@ namespace Elistia.DotNetRtfWriter
 			{
 				return new FontDescriptor(0);
 			}
-		} 
+		}
 
-		public FontDescriptor createFont(string fontName)
+        public void setDefaultFont(string fontName)
+        {
+            _fontTable[0] = fontName;
+        }
+
+        public FontDescriptor createFont(string fontName)
 		{
 			if (_fontTable.Contains(fontName)) {
 				return new FontDescriptor(_fontTable.IndexOf(fontName));

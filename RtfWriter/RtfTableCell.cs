@@ -142,7 +142,15 @@ namespace Elistia.DotNetRtfWriter
 
 		public float OuterLeftBorderClearance { get; set; }
 
-		public override string render()
+        public void setBorderColor(ColorDescriptor color)
+        {
+            this.Borders[Direction.Top].Color = color;
+            this.Borders[Direction.Bottom].Color = color;
+            this.Borders[Direction.Left].Color = color;
+            this.Borders[Direction.Right].Color = color;
+        }
+
+        public override string render()
 		{
 			StringBuilder result = new StringBuilder();
 			string align = "";
