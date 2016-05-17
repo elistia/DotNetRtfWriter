@@ -2,7 +2,6 @@ using System;
 using System.Configuration;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Elistia.DotNetRtfWriter
@@ -317,7 +316,7 @@ namespace Elistia.DotNetRtfWriter
 			}
 			majorityCount = -1;
 			majorityBorder = representative.Borders[dir];
-			foreach(KeyValuePair<Border, int> de in stat.ToList()) {
+			foreach(KeyValuePair<Border, int> de in stat) {
 				if(de.Value > majorityCount) {
 					majorityCount = de.Value;
 					majorityBorder.Style = de.Key.Style;
