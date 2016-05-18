@@ -15,6 +15,15 @@ namespace Elistia.DotNetRtfWriter
             Time,
         }
         
+        private static string[] ControlWordPool = new string[] {
+            // correspond with FiledControlWords enum
+            "",
+            @"{\field{\*\fldinst PAGE }}",
+            @"{\field{\*\fldinst NUMPAGES }}",
+            @"{\field{\*\fldinst DATE }}",
+            @"{\field{\*\fldinst TIME }}"
+        };
+        
         private int _position;
         private FieldType _type;
         
@@ -33,15 +42,6 @@ namespace Elistia.DotNetRtfWriter
         
         public override string render()
         {
-            string[] ControlWordPool = new string[] {
-                // correspond with FiledControlWords enum
-                "",
-                @"{\field{\*\fldinst PAGE }}",
-                @"{\field{\*\fldinst NUMPAGES }}",
-                @"{\field{\*\fldinst DATE }}",
-                @"{\field{\*\fldinst TIME }}"
-            };
-            
             return ControlWordPool[(int)_type];
         }
     }

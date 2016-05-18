@@ -19,6 +19,8 @@ namespace Elistia.DotNetRtfWriter
         private ColorDescriptor _bgColor;
         private ColorDescriptor _fgColor;
         private TwoInOneStyle _twoInOneStyle;
+        private string _bookmark;
+        private string _localHyperlink;
         
         internal RtfCharFormat(int begin, int end, int textLength)
         {
@@ -34,6 +36,7 @@ namespace Elistia.DotNetRtfWriter
             _bgColor = null;
             _fgColor = null;
             _twoInOneStyle = TwoInOneStyle.NotEnabled;
+            _bookmark = "";
             setRange(begin, end, textLength);
         }
         
@@ -95,7 +98,31 @@ namespace Elistia.DotNetRtfWriter
                 return _end;
             }
         }
-        
+
+        public string Bookmark
+        {
+            get
+            {
+                return _bookmark;
+            }
+            set
+            {
+                _bookmark = value;
+            }
+        }
+
+        public string LocalHyperlink
+        {
+            get
+            {
+                return _localHyperlink;
+            }
+            set
+            {
+                _localHyperlink = value;
+            }
+        }
+
         public FontDescriptor Font
         {
             get
@@ -180,6 +207,13 @@ namespace Elistia.DotNetRtfWriter
         {
             StringBuilder result = new StringBuilder("{");
             
+            if (!string.IsNullOrEmpty(_localHyperlink)) {
+                result.Append(@"{\field{\*\fldinst HYPERLINK \\l ");
+                result.Append("\"" + _localHyperlink + "\"");
+                result.Append(@"}{\fldrslt{");
+            }
+
+
             if (_font != null || _ansiFont != null) {
                 if (_font == null) {
                     result.Append(@"\f" + _ansiFont.Value);
@@ -232,12 +266,28 @@ namespace Elistia.DotNetRtfWriter
             if (result.ToString().Contains(@"\")) {
                 result.Append(" ");
             }
+
+            if (!string.IsNullOrEmpty(_bookmark)) {
+                result.Append(@"{\*\bkmkstart " + _bookmark + "}");
+            }
+
             return result.ToString();
         }
 
         internal string renderTail()
         {
-            return "}";
+            StringBuilder result = new StringBuilder("");
+
+            if (!string.IsNullOrEmpty(_bookmark)) {
+                result.Append(@"{\*\bkmkend " + _bookmark + "}");
+            }
+            
+            if (!string.IsNullOrEmpty(_localHyperlink)) {
+                result.Append(@"}}}");
+            }
+
+            result.Append("}");
+            return result.ToString();
         }
 
         private static IDictionary<FontStyleFlag, string> _fontStyleMap = new Dictionary<FontStyleFlag, string>

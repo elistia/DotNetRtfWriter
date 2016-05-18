@@ -168,13 +168,30 @@ namespace Debugging
 
 
             // ==========================================================================
+            // Demo 7.1: Hyperlink
+            // ==========================================================================
+            par = doc.addParagraph();
+            par.setText("Demo 7.1: Hyperlink to target (Demo9)");
+            fmt = par.addCharFormat(10, 18);
+            fmt.LocalHyperlink = "target";
+            fmt.FgColor = blue;
+
+
+            // ==========================================================================
             // Demo 8: New page
             // ==========================================================================
-            // This format is provisioned for Far East languages. This demo uses Traditional
-            // Chinese as an example.
             par = doc.addParagraph();
             par.StartNewPage = true;
             par.setText("Demo8: New page");
+
+
+            // ==========================================================================
+            // Demo 9: Set bookmark
+            // ==========================================================================
+            par = doc.addParagraph();
+            par.setText("Demo9: Set bookmark");
+            fmt = par.addCharFormat(0, 18);
+            fmt.Bookmark = "target";
 
 
             // ==========================================================================
