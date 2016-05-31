@@ -21,7 +21,9 @@ namespace Elistia.DotNetRtfWriter
         private TwoInOneStyle _twoInOneStyle;
         private string _bookmark;
         private string _localHyperlink;
-        
+        private string _localHyperlinkTip;
+
+
         internal RtfCharFormat(int begin, int end, int textLength)
         {
             // Note:
@@ -123,6 +125,18 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
+        public string LocalHyperlinkTip
+        {
+            get
+            {
+                return _localHyperlinkTip;
+            }
+            set
+            {
+                _localHyperlinkTip = value;
+            }
+        }
+
         public FontDescriptor Font
         {
             get
@@ -210,6 +224,7 @@ namespace Elistia.DotNetRtfWriter
             if (!string.IsNullOrEmpty(_localHyperlink)) {
                 result.Append(@"{\field{\*\fldinst HYPERLINK \\l ");
                 result.Append("\"" + _localHyperlink + "\"");
+                if (!string.IsNullOrEmpty(_localHyperlinkTip)) result.Append(" \\\\o \"" + _localHyperlinkTip + "\"");
                 result.Append(@"}{\fldrslt{");
             }
 

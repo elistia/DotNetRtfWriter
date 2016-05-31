@@ -174,6 +174,7 @@ namespace Debugging
             par.setText("Demo 7.1: Hyperlink to target (Demo9)");
             fmt = par.addCharFormat(10, 18);
             fmt.LocalHyperlink = "target";
+            fmt.LocalHyperlinkTip = "Link to target";
             fmt.FgColor = blue;
 
 
