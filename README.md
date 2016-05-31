@@ -1,7 +1,9 @@
 # DotNetRtfWriter
 ##### A .NET library for generating RTF files
 
-#### Version 1.0.0 (03/16/2013)
+##### Originally written by [dwhuang](https://github.com/dwhuang)
+
+#### Version 1.0.0 (16/03/2013)
 **Contributed by Matt Buckley and Thomson Reuters** - [Original Project on Sourceforge](https://sourceforge.net/projects/netrtfwriter/)
 
 #### Forked by Tom Dowden (24/03/2016)
